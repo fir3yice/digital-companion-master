@@ -29,16 +29,16 @@ app.post('/api/setPlayer', (req, res) => {
 
 let parts = []
 parts.push(newPart("MKH", "Monkey Head", 2, 1, 1, 0, "Terrestrial"))
-parts.push(newPart("MDH", "Medusa Head", 0, 0, 1, 3, "Fantastical"))
+//parts.push(newPart("MDH", "Medusa Head", 0, 0, 1, 3, "Fantastical"))
 parts.push(newPart("DLH", "Dolphin Head", 0, 3, 0, 1, "Aquatic"))
 parts.push(newPart("CMH", "Computer Monitor (Head)", 1, -1, 2, 1, "Inorganic"))
 parts.push(newPart("CCH", "Cyclops Head", 2, -1, 2, 0, "Inorganic"))
 
-parts.push(newPart("HMB", "Human Body", 1, 1, 2, 2, "Terrestrial"))
+//parts.push(newPart("HMB", "Human Body", 1, 1, 2, 2, "Terrestrial"))
 parts.push(newPart("LNB", "Lion Body", 3, 2, 0, 1, "Terrestrial"))
 parts.push(newPart("RBB", "Robotic body", 2, -1, 5, 0, "Inorganic"))
-parts.push(newPart("RHB", "Rhino Body", 1, 0, 3, 2, "Terrestrial"))
-parts.push(newPart("GHB", "Ghost", 1, 3, 3, -1, "Fantastical"))
+//parts.push(newPart("RHB", "Rhino Body", 1, 0, 3, 2, "Terrestrial"))
+//parts.push(newPart("GHB", "Ghost", 1, 3, 3, -1, "Fantastical"))
 parts.push(newPart("CRB", "Car", 0, 3, 4, -1, "Inorganic"))
 parts.push(newPart("MHB", "Muscular Human Body", 2, 2, 1, 1, "Terrestrial"))
 
@@ -50,7 +50,7 @@ parts.push(newPart("OCA", "Octopus Arms", 1, -1, 2, 2, "Aquatic"))
 
 parts.push(newPart("HML", "Human Legs", 1, 1, 1, 1, "Terrestrial"))
 parts.push(newPart("CHL", "Chicken Legs", 1, 2, 1, -1, "Terrestrial"))
-parts.push(newPart("SPL", "Spider Legs", 1, 1, 2, 0, "Terrestrial"))
+//parts.push(newPart("SPL", "Spider Legs", 1, 1, 2, 0, "Terrestrial"))
 parts.push(newPart("HOL", "Horse Legs", 2, 2, 0, 0, "Terrestrial"))
 parts.push(newPart("BFL", "Basic Fins", 0, 1, 1, 0, "Aquatic"))
 parts.push(newPart("DFL", "Dorsal Fins", 0, 1, 1, 1, "Aquatic"))
@@ -61,7 +61,7 @@ parts.push(newPart("FRL", "Frog Leg", 1, 2, 1, 0, "Aquatic"))
 parts.push(newPart("DTS", "Dragon Tail", 2, 0, 1, 1, "Fantastical"))
 parts.push(newPart("FTS", "Fox Tail", 0, 2, 0, 2, "Terrestrial"))
 parts.push(newPart("MTS", "Mermaid Tail", 1, 0, -1, 4, "Fantastical"))
-parts.push(newPart("CES", "Cheetah Ears", 0, 1, 2, 1, "Terrestrial"))
+//parts.push(newPart("CES", "Cheetah Ears", 0, 1, 2, 1, "Terrestrial"))
 parts.push(newPart("PTS", "Peacock tail", 0, 0, 0, 4, "Terrestrial"))
 parts.push(newPart("SLS", "Scales", 1, 1, 2, 0, "Terrestrial"))
 parts.push(newPart("JKS", "Jetpack", 1, 4, -1, 0, "Inorganic"))
@@ -115,15 +115,15 @@ function useBuff(player) {
 app.get("/api/reset", (req, res) => {
     players = [[], [], [], []]
     buffs = [[], [], [], []]
-    res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Reset successful!")
+    res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Reset successful!")
 })
 
 app.get("/api/view/:player", async (req, res) => {
     const player = req.params.player
     if (player < 1 || player > 4) {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid player number!") 
     } else {
-        res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send({ parts: players[player - 1], stats: getStats(player), buffs: getBuffs(player) })
+        res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send({ parts: players[player - 1], stats: getStats(player), buffs: getBuffs(player) })
     }
 })
 
@@ -133,12 +133,12 @@ app.get("/api/view_parts/:player", async (req, res) => {
     console.log(players)
     console.log(buffs)
     if (player < 1 || player > 4) {
-        await res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').setHeader(
+        await res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').setHeader(
             "Cache-Control",
             "no-cache, no-store, max-age=0, must-revalidate"
           ).send("Invalid player number!")
     } else {
-        await res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').setHeader(
+        await res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').setHeader(
             "Cache-Control",
             "no-cache, no-store, max-age=0, must-revalidate"
           ).send(players[player - 1])
@@ -158,16 +158,16 @@ app.get("/api/view_all_stats", async (req, res) => {
         allStats[i].stats.def += buffs.def
         allStats[i].stats.cha += buffs.cha
     }
-    res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send(allStats)
+    res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send(allStats)
 })
 
 app.get("/api/search_part/:id", (req, res) => {
     const id = req.params.id
     const parts = findPartsStartingWith(id)
     if (!parts) {
-        res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send([])
+        res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send([])
     } else {
-        res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send(parts)
+        res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send(parts)
     }
 });
 
@@ -175,14 +175,14 @@ app.post("/api/add/:player/:part", (req, res) => {
     const player = req.params.player
     const part = req.params.part
     if (player < 1 || player > 4) {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid player number!")
     } else {
         const partObj = parts.find(p => p.id === part)
         if (!partObj) {
-            res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid part ID!")
+            res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid part ID!")
         } else {
             players[player - 1].push(partObj)
-            res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Part added!")
+            res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Part added!")
         }
     }
 });
@@ -191,18 +191,18 @@ app.delete("/api/remove/:player/:part", (req, res) => {
     const player = req.params.player
     const part = req.params.part
     if (player < 1 || player > 4) {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid player number!")
     } else {
         const partObj = parts.find(p => p.id === part)
         if (!partObj) {
-            res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid part ID!")
+            res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid part ID!")
         } else {
             const index = players[player - 1].findIndex(p => p.id === part)
             if (index === -1) {
-                res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Part not found!")
+                res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Part not found!")
             } else {
                 players[player - 1].splice(index, 1)
-                res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Part removed!")
+                res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Part removed!")
             }
         }
     }
@@ -214,14 +214,14 @@ app.post("/api/buff/:player/:stat/:buff/:duration", (req, res) => {
     const buff = parseInt(req.params.buff)
     const duration = parseInt(req.params.duration)
     if (player < 1 || player > 4) {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid player number!")
     } else if (stat !== "str" && stat !== "spd" && stat !== "def" && stat !== "cha") {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid stat!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid stat!")
     } else if (isNaN(buff) || isNaN(duration)) {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Buff and duration must be numbers!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Buff and duration must be numbers!")
     } else {
         addBuff(player, stat, buff, duration)
-        res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Buff added!")
+        res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Buff added!")
     }
 });
 
@@ -229,18 +229,18 @@ app.get("/api/event/:player/:stat", (req, res) => {
     const player = req.params.player
     const stat = req.params.stat
     if (player < 1 || player > 4) {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid player number!")
     } else if (stat !== "str" && stat !== "spd" && stat !== "def" && stat !== "cha" && stat !== "none") {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid stat!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid stat!")
     } else {
         let roll = getRandomInt(20) + 1
         if(stat === "none") {
-            res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send({roll})
+            res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send({roll})
         } else {
             const stats = getStats(player)
             const buffs = getBuffs(player)
             roll += stats[stat] + buffs[stat]
-            res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send({roll})
+            res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send({roll})
         }
     }
 });
@@ -249,7 +249,7 @@ app.post("/api/battle/:player1/:player2", (req, res) => {
     const player1 = req.params.player1
     const player2 = req.params.player2
     if (player1 < 1 || player1 > 4 || player2 < 1 || player2 > 4) {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid player number!")
     } else {
         const stats1 = getStats(player1)
         const stats2 = getStats(player2)
@@ -260,7 +260,7 @@ app.post("/api/battle/:player1/:player2", (req, res) => {
         const result = { predator: total1, prey: total2 }
         useBuff(player1)
         useBuff(player2)
-        res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send(result)
+        res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send(result)
     }
 });
 
@@ -271,13 +271,13 @@ function getRandomInt(max) {
 app.get("/api/move/:player", (req, res) => {
     const player = req.params.player
     if (player < 1 || player > 4) {
-        res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send("Invalid player number!")
     } else {
         let number = getRandomInt(4) + 6 - players[player - 1].length
         if (number < 0) {
            number = 0 
         }
-        res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send({number})
+        res.status(200).setHeader('Access-Control-Allow-Origin', 'http://localhost:3000').send({number})
     }
 });
 

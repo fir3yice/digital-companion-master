@@ -175,8 +175,7 @@ export default function LimbContainer({ limb, playerNow, fetchData }) {
                 fetch(`${API_URL}/api/remove/${playerNum}/${limb.code}`, { method: 'DELETE' })
                   .then(response => {
                     if (response.status === 200) {
-                      fetchData();
-                      setOpenModal(false);
+                      window.location.reload()
                     } else {
                       console.error('Error:', response)
                     }
